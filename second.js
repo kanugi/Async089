@@ -8,16 +8,34 @@ function login(username, callback) {
   }, 200)
 }
 
-function getUser(token){
-  if(token) return {apiKey: "BJUwh1"}
+function getUser(token, callback){
+  console.log("processing token...")
+  if(token) 
+  setTimeout(() => {
+    callback ( {apiKey: "BJUwh1" })
+  }, 500); 
 }
 
-function getPictures(apiKey){
-  if(apiKey) return picturses
+function getPictures(apiKey, callback){
+  console.log("processing pictures...")
+  if(apiKey) setTimeout(() => {
+    callback({pic: pictures})
+  }, 1500);
 }
 
 login("Muhammad Baddar", function(response){
-  console.log('getting data =>', response)
+  const {token} = response
+  getUser(token, function(response){
+    const {apiKey} = response
+    getPictures(apiKey, function(response){
+      const {pic} = response
+      console.log(pic)
+    })
+  })
+  // getPictures(apiKey, function(response){
+  //   const {pictures} = response
+  //   console.log(pictures)
+  // })
 })
 
 
