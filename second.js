@@ -5,16 +5,16 @@ function login(username) {
   console.log("Memvalidasi data...")
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      if(username != "Muhammad Baddar") reject("Username salah")
+      if(username != "Muhammad Baddar") reject("Username salah. Akses Ditolak!")
       resolve({token: token})
     }, 200)
   })
 }
 
 function getUser(token){
-  console.log("processing token...")
+  console.log("Memproses token...")
   return new Promise((resolve, reject) => {
-    if (!token) reject("token tidak ada")
+    if (!token) reject("Token tidak ada. Akses Ditolak!")
     setTimeout(() => {
       resolve({apiKey: "UBey51"})
     }, 500)
@@ -22,9 +22,9 @@ function getUser(token){
 }
 
 function getPictures(apiKey){
-  console.log("processing pictures...")
+  console.log("Memproses gambar...")
   return new Promise((resolve, reject) => {
-    if (!apiKey) reject("apiKey tidak ada")
+    if (!apiKey) reject("ApiKey tidak ada. Akses Ditolak!")
     setTimeout(() => {
       resolve({pic: pictures})
     }, 1000)
@@ -33,7 +33,7 @@ function getPictures(apiKey){
 
 async function UserDisplay() {
   try {
-    const {token} = await login("Muhammad ")
+    const {token} = await login("Muhammad Baddar")
     const {apiKey} = await getUser(token)
     const {pic} = await getPictures(apiKey)
   
@@ -48,4 +48,3 @@ async function UserDisplay() {
 }
 
 UserDisplay()
-
