@@ -21,19 +21,36 @@ function getUser(token){
   })
 }
 
-function getPictures(apiKey, callback){
+function getPictures(apiKey){
   console.log("processing pictures...")
-  if(apiKey) setTimeout(() => {
-    callback({pic: pictures})
-  }, 1500);
+  return new Promise((resolve, reject) => {
+    if (!apiKey) reject("apiKey tidak ada")
+    setTimeout(() => {
+      resolve({pic: pictures})
+    }, 1000)
+  })
 }
 
-const user = login("Muhammad Baddar")
-user.then(function(response) {
-  const {token} = response
-  getUser(token).then(function (response){
-    console.log({response})
-    const {apiKey} = response
-    console.log(apiKey)
-  }).catch(err => console.log(err.message))
-})
+async function UserDisplay() {
+  const {token} = await login("Muhammad Baddar")
+  const {apiKey} = await getUser(token)
+  const {pic} = await getPictures(apiKey)
+
+  console.log(`
+  Token: ${token}
+  ApiKey: ${apiKey}
+  Pictures: ${pic}
+  `)
+}
+
+UserDisplay()
+
+// const user = login("Muhammad Baddar")
+// user.then(function(response) {
+//   const {token} = response
+//   getUser(token).then(function (response){
+//     console.log({response})
+//     const {apiKey} = response
+//     console.log(apiKey)
+//   }).catch(err => console.log(err.message))
+// }).catch(err => console.log(err))
